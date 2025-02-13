@@ -1,4 +1,3 @@
-
 import os
 import cv2
 import numpy as np
@@ -10,6 +9,7 @@ def mask_red_green(image):
     upper_red = np.array([50, 50, 255])
     lower_green = np.array([0, 10, 0]) 
     upper_green = np.array([50, 255, 50])
+   
     red_mask = cv2.inRange(image, lower_red, upper_red)
     green_mask = cv2.inRange(image, lower_green, upper_green)
     
@@ -40,7 +40,8 @@ def process_images_from_directory(model, image_directory, device='cpu'):
             x_min, y_min, x_max, y_max = int(x_min), int(y_min), int(x_max), int(y_max)
             cropped_region = image_bgr[y_min:y_max, x_min:x_max]
             masked_region = mask_red_green(cropped_region)
-
+            masked_region = Filters(cropped_region)
+            
         
         cv2.imshow('Video', image_with_boxes)
         cv2.imshow('Masked Regions', masked_region)
@@ -52,7 +53,7 @@ def process_images_from_directory(model, image_directory, device='cpu'):
 
 if __name__ == "__main__":
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
-    model_path = 'ssd_mobilenetv3_single_class.pth'
-    image_directory  = "/home/pushpak/Downloads/data 3/"
+    model_path = 'perception_work/ssd_mobilenetv3_single_class.pth'
+    image_directory  = "images2/"
     model = load_model(model_path, device=device)
     process_images_from_directory(model, image_directory, device=device)
