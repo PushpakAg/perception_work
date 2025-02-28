@@ -17,7 +17,6 @@ def mask_red_green(image):
     
     return combined_mask
 
-
 def process_images_from_directory(model, image_directory, device='cpu'):
     """Process all images in a given directory."""
     image_files = [f for f in os.listdir(image_directory) if f.lower().endswith(('.png', '.jpg', '.jpeg'))]
@@ -52,7 +51,7 @@ def process_images_from_directory(model, image_directory, device='cpu'):
 
 if __name__ == "__main__":
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
-    model_path = 'ssd_mobilenetv3_single_class.pth'
+    model_path = 'models/ssd_mobilenetv3_single_class.pth'
     image_directory  = "/home/pushpak/Downloads/data 3/"
     model = load_model(model_path, device=device)
     process_images_from_directory(model, image_directory, device=device)
