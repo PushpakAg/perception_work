@@ -134,10 +134,10 @@ if __name__=="__main__":
     model=load_model('models/ssd_mobilenetv3_single_class.pth',device=device)
     image_directory="/home/pushpak/Downloads/data 3/" # modify as needed
     
-    data = np.load('MultiMatrix.npz')
+    data = np.load('/home/pushpak/Desktop/gate_mobilenet/MultiMatrix.npz')
     camera_matrix=data["camMatrix"]
     dist_coeffs=data["distCoef"]
 
-    gate_width = 0.15 
-    gate_height = 0.1 
+    gate_width = 1.5
+    gate_height = 1
     process_images(model,image_directory,gate_width,gate_height,camera_matrix,dist_coeffs,device=device)
